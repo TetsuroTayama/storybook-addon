@@ -135,12 +135,13 @@ import { withThemes } from '@react-theming/storybook-addon';
 import theme from '../src/theme';
 
 const providerFn = ({ theme, children }) => {
-  const muTheme = createMuiTheme(theme);
+  const serialTheme = JSON.parse(JSON.stringify(theme));
+  const muTheme = createMuiTheme(serialTheme);    
   return <ThemeProvider theme={muTheme}>{children}</ThemeProvider>;
 };
 
 // pass ThemeProvider and array of your themes to decorator
-addDecorator(withThemes(null, [theme]));
+addDecorator(withThemes(null, [theme], { providerFn }));
 ```
 
 ```js
